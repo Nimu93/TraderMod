@@ -28,4 +28,14 @@ public class DatabaseUtils {
         Statement statement = database.getConnection().createStatement();
         statement.execute(sql);
     }
+    public static int getMoney(Database database, String playerUUID) throws SQLException {
+        String sql =  "SELECT playermoney FROM " + database + " WHERE playerUUID like '" + playerUUID +"'" ;
+        Statement statement = database.getConnection().createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+        Object o = rs.getObject(1);
+        if (o instanceof Integer) {
+            return (int) o;
+        }
+        return -1;
+    }
 }

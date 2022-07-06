@@ -18,7 +18,7 @@ public class Money {
   int amount;
   PlayerEntity player;
 
-  public Money( PlayerEntity player, int amount){
+  public Money(PlayerEntity player, int amount){
     this.amount = amount;
     this.player = player;
   }
