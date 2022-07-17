@@ -5,7 +5,7 @@
 For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
 Be carreful, this mod work only for serverside, don't put the mod in the client. 
 
-##Description
+## Description
 
 The mod has several commands that allow you to manage your money on your server, pay other players with a fictional money!
 
