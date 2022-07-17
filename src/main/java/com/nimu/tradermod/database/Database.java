@@ -1,11 +1,15 @@
 package com.nimu.tradermod.database;
 
 import com.nimu.tradermod.Main;
+import org.lwjgl.system.CallbackI;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Dictionary;
+import java.util.List;
 
 public class Database {
 
@@ -13,12 +17,17 @@ public class Database {
     public String NameDB;
     public File DBfile;
 
-    public Database(String path){
+    public Database(String path) throws IOException {
         NameDB = "TraderMod";
         setupConnection(path);
     }
-    private void setupConnection(String path){
+    private void setupConnection(String path) throws IOException {
+        File pathtemp = new File(path);
+        if (!pathtemp.isDirectory()){
+            pathtemp.mkdir();
+        }
         DBfile = new File(path + File.separator + NameDB + ".db");
+
         try {
             Class.forName("org.sqlite.JDBC");
 

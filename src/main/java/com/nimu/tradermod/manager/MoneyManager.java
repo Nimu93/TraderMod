@@ -6,13 +6,25 @@ import com.nimu.tradermod.database.DatabaseUtils;
 import com.nimu.tradermod.money.Money;
 import net.minecraft.entity.player.PlayerEntity;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class MoneyManager implements IManager<MoneyManager>{
 
     public Database database;
    public MoneyManager(Database database){
        this.database = database;
+       try {
+           ResultSet resultSet = this.database.getConnection().getMetaData().getTables(null, null, "money_table", null);
+           if (!resultSet.next()){
+               String sql = "CREATE TABLE money_table (playerUUID, playermoney);";
+               Statement statement = database.getConnection().createStatement();
+               statement.execute(sql);
+           }
+       } catch (SQLException ex){
+           Main.LOGGER.error(ex);
+       }
    }
 
    public Money getMoneyForPlayer(PlayerEntity playerEntity) throws SQLException {

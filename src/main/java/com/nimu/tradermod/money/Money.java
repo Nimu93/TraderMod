@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 
 import java.sql.SQLException;
@@ -35,16 +36,17 @@ public class Money {
     }
   public void Translate(Money otherPlayer, int quantity) throws SQLException {
       if (otherPlayer.player.isAlive() && Main.PLAYER_MANAGER.getPlayer(otherPlayer.player.getUuid()) != null){
-      if (amount -quantity < 0){
+          if (amount - quantity > 0){
             otherPlayer.AddMoney(quantity);
             RemoveMoney(quantity);
         }
       else {
-          player.sendMessage(Text.of("Not enough money"), false);
+          player.sendMessage(new LiteralText("Not enough money"), false);
       }
       }else {
-          player.sendMessage(Text.of("Player " + otherPlayer.player.getEntityName() + " is not connected !"), false);
+          player.sendMessage(new LiteralText("Player " + otherPlayer.player.getEntityName() + " is not connected !"), false);
       }
+      player.sendMessage(new LiteralText("You sent " + quantity + " to " + otherPlayer.player.getEntityName()), false);
   }
 
   public int getAmount(){
